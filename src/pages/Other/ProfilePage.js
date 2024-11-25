@@ -4,6 +4,7 @@ import { fetchOtherProfile } from "../../api";
 
 import "../../styles/Other/Profile/grid.css";
 import "../../styles/Other/Profile/resume.css";
+import HeaderBack from "../../components/HeaderBack";
 
 const ProfilePage = () => {
   const { id } = useParams();
@@ -25,6 +26,7 @@ const ProfilePage = () => {
 
   return (
     <main className="profile-page-container">
+      <HeaderBack />
       <section>
         <div className="box">
           <img className="profile-picture" src={personImage} alt="" />
@@ -86,7 +88,9 @@ const ProfilePage = () => {
       </div> */}
 
         <section className="more-section">
-          <button className="more-button">Больше работ</button>
+          <Link to={`/profile/portfolio/${person.executorId}`}>
+            <button className="more-button">Больше работ</button>
+          </Link>
         </section>
       </section>
     </main>

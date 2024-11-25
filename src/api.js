@@ -34,7 +34,7 @@ export const fetchUsersHomePage = async () => {
 
 export const fetchWorkPage = async (id) => {
     try {
-        const response = await api.get(`/work/${id}`);
+        const response = await api.get(`/portfolio/work/${id}`);
         return response.data; // Возвращаем данные работы
     } catch (error) {
         handleApiError(error); // Обрабатываем ошибку
@@ -49,5 +49,14 @@ export const fetchOtherProfile = async (id) => {
         handleApiError(error); // Обрабатываем ошибку
     }
 };
+
+export const fetchWorksExecutor = async (id) => {
+    try {
+        const response = await api.get(`/portfolio/${id}`);
+        return response.data;
+    } catch (error) {
+        handleApiError(error);
+    }
+}
 
 export default api;

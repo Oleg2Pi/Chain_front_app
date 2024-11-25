@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { fetchWorkPage } from "../../api";
 
 import "../../styles/Other/Work/grid.css";
 import "../../styles/Other/Work/main.css";
+import HeaderBack from "../../components/HeaderBack";
 
 const WorkPage = () => {
   const [work, setWork] = useState(null); // начальное значение null
   const { id } = useParams();
-  const navigate = useNavigate();
-
-  const handleGoBack = () => {
-    navigate(-1);
-  };
 
   useEffect(() => {
     const getWork = async (id) => {
@@ -46,9 +42,7 @@ const WorkPage = () => {
 
   return (
     <main className="work-page-container">
-      <div className="arrow-exit" onClick={handleGoBack}>
-        <div className="arrow-back">&#x2039;</div>
-      </div>
+      <HeaderBack />
       <section>
         <div className="main-container">
           <div className="container">

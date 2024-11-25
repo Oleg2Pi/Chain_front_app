@@ -1,0 +1,44 @@
+h4 { 
+  margin-top:20px;
+  margin-bottom:10px;
+  margin-left:8px;
+  font-weight:normal;
+}
+.grid {
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows:repeat(auto-fit, 1fr);
+  row-gap: 5px;
+  column-gap: 5px;
+
+  padding-right:5px;
+  padding-left:5px;
+}
+.grid-container {
+  background-color: #D9D9D9;
+  height:250px;
+  border-radius:30px;
+  position:relative;
+}
+.indication {
+  position:absolute;
+  bottom:5px;
+  right:10px;
+  display:flex;
+}
+.indicator {
+  padding-right:5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.numbers {
+  font-size:11px;
+}
+.description {
+  font-weight:bold;
+  padding-left:5px;
+  font-size:14px;
+  max-width: 140px;
+}

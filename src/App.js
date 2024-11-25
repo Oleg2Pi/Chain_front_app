@@ -1,22 +1,20 @@
 import React from "react";
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import WorkPage from "./pages/Other/WorkPage";
 import Footer from "./components/Footer";
-import ProfilePage from "./pages/ProfilePage";
 
-import './styles/general.css';
-import './styles/navigation.css';
-import './styles/main.css';
+import './styles/homePage/general.css';
 
 const App = () => {
   return (
-    <main>
+    <div>
       <Routes>  
         <Route path="/" element={<HomePage />} /> 
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/:id/work/:id" element={<WorkPage /> }/>
       </Routes>
       <Footer />
-    </main>
+    </div>
   );
 };
 

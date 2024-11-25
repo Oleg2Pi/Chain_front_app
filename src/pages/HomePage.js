@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import HeaderSearchWorks from "../components/HeaderSearchWorks";
 import { Link } from "react-router-dom";
-import { fetchUsers } from "../api";
+import { fetchUsersHomePage } from "../api";
 import defaultImage from "../assets/icons/default-image.jpg";
 
 import '../styles/homePage/main.css';
@@ -12,8 +12,7 @@ const HomePage = () => {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const response = await fetchUsers();
-        const data = response.data;
+        const data = await fetchUsersHomePage();
         if (Array.isArray(data)) {
           setPersons(data);
         } else {
@@ -34,25 +33,28 @@ const HomePage = () => {
         <div className="grid-box">
           {Array.isArray(persons) && persons.length > 0 ? (
             persons.map((profile, index) => {
+
+              if (!profile.workFile) {
+                return null; // Если работы нет, пропускаем этот профиль
+              }
+
               const fullName = `${profile.firstName} ${profile.lastName}`;
               const profileImagePath =
-                profile.image && profile.image.filePath
-                  ? `${process.env.PUBLIC_URL}/${profile.image.filePath.replace(
+                profile.imageFilePath
+                  ? `${process.env.PUBLIC_URL}/${profile.imageFilePath.replace(
                       /\\/g,
                       "/"
                     )}`
                   : defaultImage; // Путь к изображению по умолчанию
               const workImagePath =
-                profile.executor &&
-                profile.executor.work &&
-                profile.executor.work.file
+                profile.workFile
                   ? `${
                       process.env.PUBLIC_URL
-                    }/${profile.executor.work.file.replace(/\\/g, "/")}`
+                    }/${profile.workFile.replace(/\\/g, "/")}`
                   : defaultImage;
               return (
                 <div className="column-box" key={profile.chatId}>
-                  <Link className="work-photo" to="/">
+                  <Link className="work-photo" to={`/profile/work/${profile.workId}`}>
                     <div className="work-photo">
                       <img className="photo" src={workImagePath} alt="" />
                     </div>

@@ -1,16 +1,18 @@
 * {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
-html, body {
-  margin:0;
-  padding:0;
+html,
+body {
+  margin: 0;
+  padding: 0;
   overflow-x: hidden;
-  height:3000px;
+  height: 3000px;
+  background-color: #efeef4;
 }
-@media (prefers-color-scheme:light) {
+@media (prefers-color-scheme: light) {
   body {
-    background:white;
-    color:black;
+    background: white;
+    color: black;
   }
 }

@@ -41,4 +41,13 @@ export const fetchWorkPage = async (id) => {
     }
 };
 
+export const fetchOtherProfile = async (id) => {
+    try {
+        const response = await api.get(`/person/${id}`);
+        return response.data; // Возвращаем данные человека
+    } catch (error) {
+        handleApiError(error); // Обрабатываем ошибку
+    }
+};
+
 export default api;

@@ -53,7 +53,7 @@ const WorkPage = () => {
         <div className="main-container">
           <div className="container">
             <div className="grey-container">
-              <Link to="#">
+              <Link to={`/profile/${work.personChatId}`}>
                 <img src={personImageUrl} alt="" className="image" />
                 <div className="information">
                   <div className="name">{`${

@@ -1,27 +1,95 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { fetchUserByChatId } from "../../api";
+import { Link, useParams } from "react-router-dom";
+import { fetchOtherProfile } from "../../api";
+
+import "../../styles/Other/Profile/grid.css";
+import "../../styles/Other/Profile/resume.css";
 
 const ProfilePage = () => {
-  const { chatId } = useParams();
-  const [user, setUser] = useState(null);
+  const { id } = useParams();
+  const [person, setPerson] = useState(null);
 
   useEffect(() => {
-    const getUser = async () => {
-      const response = await fetchUserByChatId(chatId);
-      setUser(response.data);
+    const getPerson = async () => {
+      const response = await fetchOtherProfile(id);
+      setPerson(response);
     };
-    getUser();
-  }, [chatId]);
+    getPerson();
+  }, [id]);
 
-  if (!user) return <p>Loading...</p>;
+  if (!person) return <p>Loading...</p>;
+
+  const personImage = `${
+    process.env.PUBLIC_URL
+  }/${person.personImagePath.replace(/\\/g, "/")}`;
 
   return (
-    <div>
-      <h2>{user.firstName}</h2>
-      <p>Phone: {user.phone}</p>
-      <Link to={`/edit-profile/${user.chatId}`}>Edit profile</Link>
-    </div>
+    <main className="profile-page-container">
+      <section>
+        <div className="box">
+          <img className="profile-picture" src={personImage} alt="" />
+          <div className="name-profession-box">
+            <div className="name">{person.personFirstName || "Имя"}</div>
+            <div className="second-row">
+              <div className="profession">
+                {person.executorActivityArea || "Нет направления"} •
+              </div>
+              <div className="status">
+                {person.executorStatusCategory || "Нет статуса"}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <Link to="#">
+          <div className="relative-box">
+            <div className="absolute-block">☰</div>
+            <div className="resume-block">Резюме</div>
+          </div>
+        </Link>
+
+        <div className="button-box">
+          <button className="subscribe-button">Подписаться</button>
+          <button className="write-button">Написать</button>
+        </div>
+      </section>
+      <section>
+        <div className="portfolio">Портфолио</div>
+        <div className="video-grid">
+          {person.works &&
+            person.works.map((project, index) => {
+              const imagePath = `${
+                process.env.PUBLIC_URL
+              }/${project.file.replace(/\\/g, "/")}`;
+              return (
+                <div className="video-preview" key={index}>
+                  <Link to={`/profile/work/${project.id}`}>
+                    <div className="video-previw">
+                      <img src={imagePath} alt="" className="image" />
+                      <div className="video-info">
+                        <p>{project.description || "Описание проекта"}</p>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
+        </div>
+
+        {/* <div className="video-grid">
+        <div className="video-preview">
+          <img className="image" src="" alt="" />
+          <div className="video-info">
+            <p>Съемка клипа местному музыканту</p>
+          </div>
+        </div>
+      </div> */}
+
+        <section className="more-section">
+          <button className="more-button">Больше работ</button>
+        </section>
+      </section>
+    </main>
   );
 };
 

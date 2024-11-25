@@ -60,7 +60,7 @@ const HomePage = () => {
                     </div>
                   </Link>
                   <div className="information-box">
-                    <Link to="#">
+                    <Link to={`/profile/${profile.chatId}`}>
                       <div className="profile-info">
                         <img
                           className="image"

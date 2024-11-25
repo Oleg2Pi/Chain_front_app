@@ -7,7 +7,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  height: 3000px;
+  height: 110%;
   background-color: #efeef4;
 }
 @media (prefers-color-scheme: light) {

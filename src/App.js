@@ -5,6 +5,7 @@ import WorkPage from "./pages/Other/WorkPage";
 import Footer from "./components/Footer";
 
 import './styles/homePage/general.css';
+import ProfilePage from "./pages/Other/ProfilePage";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <Routes>  
         <Route path="/" element={<HomePage />} /> 
         <Route path="/profile/work/:id" element={<WorkPage /> }/>
+        <Route path="/profile/:id" element={<ProfilePage />}/>
       </Routes>
       <Footer />
     </div>

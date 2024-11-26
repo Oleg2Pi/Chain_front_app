@@ -2,6 +2,8 @@ import React from 'react';
 import search from '../assets/icons/search.png';
 import { Link } from 'react-router-dom';
 
+import '../styles/HeaderBack.css';
+
 const HeaderSearchWorks = () => {
     return (
         <header>

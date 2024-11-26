@@ -5,7 +5,7 @@ import { ApiGetFile, fetchWorksExecutor } from "../../api";
 import "../../styles/Other/Portfolio/body.css";
 import HeaderBack from "../../components/HeaderBack";
 
-const WorksPage = () => {
+const PortfolioPage = () => {
   const [works, setWorks] = useState([]);
   const { id } = useParams();
 
@@ -40,7 +40,7 @@ const WorksPage = () => {
                     <img className="image" src={imagePath} alt="" />
                   </Link>
                   <div className="video-info">
-                    <p>Съемка клипа местному музыканту</p>
+                    <p>{work.name}</p>
                   </div>
                 </div>
               );
@@ -54,4 +54,4 @@ const WorksPage = () => {
   );
 };
 
-export default WorksPage;
+export default PortfolioPage;

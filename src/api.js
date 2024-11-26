@@ -41,7 +41,7 @@ export const fetchWorkPage = async (id) => {
     }
 };
 
-export const fetchOtherProfile = async (id) => {
+export const fetchProfile = async (id) => {
     try {
         const response = await api.get(`/person/${id}`);
         return response.data; // Возвращаем данные человека
@@ -58,5 +58,7 @@ export const fetchWorksExecutor = async (id) => {
         handleApiError(error);
     }
 }
+
+export const ApiGetFile = `http://localhost:8080/api/files/`;
 
 export default api;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { fetchWorkPage } from "../../api";
+import { ApiGetFile, fetchWorkPage } from "../../api";
 
 import "../../styles/Other/Work/grid.css";
 import "../../styles/Other/Work/main.css";
@@ -32,13 +32,8 @@ const WorkPage = () => {
     return <p>Загрузка данных о работе...</p>; // отображаем сообщение о загрузке
   }
 
-  const personImageUrl = `${
-    process.env.PUBLIC_URL
-  }/${work.personImagePath.replace(/\\/g, "/")}`;
-  const workImageUrl = `${process.env.PUBLIC_URL}/${work.workFilePath.replace(
-    /\\/g,
-    "/"
-  )}`;
+  const personImageUrl = `${ApiGetFile}person/${work.personChatId}`;
+  const workImageUrl = `${ApiGetFile} ${id}`;
 
   return (
     <main className="work-page-container">
@@ -101,9 +96,7 @@ const WorkPage = () => {
         <div className="grid">
           {work.otherWorks &&
             work.otherWorks.map((project, index) => {
-              const imagePath = `${
-                process.env.PUBLIC_URL
-              }/${project.file.replace(/\\/g, "/")}`;
+              const imagePath = `${ApiGetFile} ${project.id}`;
               return (
                 <div key={index}>
                   <div className="grid-container">

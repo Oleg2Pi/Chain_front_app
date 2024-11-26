@@ -1,33 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { ApiGetFile, fetchProfile } from "../../api";
-
-import "../../styles/Other/Profile/grid.css";
-import "../../styles/Other/Profile/resume.css";
 import HeaderBack from "../../components/HeaderBack";
 
-const ProfilePage = () => {
-  const { id } = useParams();
+import "../../styles/My/grid.css";
+import "../../styles/My/resume.css";
+import "../../styles/My/style.css";
+import setting from "../../assets/icons/setting.png";
+import search_work from "../../assets/elements/Rectangle_search_work.png";
+
+const MyProfilePage = () => {
+  const { myId } = useParams();
   const [person, setPerson] = useState(null);
+  const navigate = useNavigate();
+  
 
   useEffect(() => {
-    const getPerson = async () => {
-      const response = await fetchProfile(id);
+
+    const getUser = async () => {
+      const response = await fetchProfile(myId);
       setPerson(response);
     };
-    getPerson();
-  }, [id]);
+    getUser();
+  }, [myId]);
 
   if (!person) return <p>Loading...</p>;
 
-  const personImage = `${ApiGetFile}person/${person.personChatId}`;
+  const handleClickPortfolio = () => {
+    navigate(`/portfolio/${person.executorId}`)
+  };
+
+  const personImage = `${ApiGetFile}person/${myId}`;
 
   return (
-    <main className="profile-page-container">
+    <main className="myprofile-page-container">
       <HeaderBack />
       <section>
         <div className="box">
-          <img className="profile-picture" src={personImage} alt="" />
+          <div className="profile-picture-container">
+            <img className="profile-picture" src={personImage} alt="" />
+          </div>
           <div className="name-profession-box">
             <div className="name">{person.personFirstName || "Имя"}</div>
             <div className="second-row">
@@ -39,30 +51,37 @@ const ProfilePage = () => {
               </div>
             </div>
           </div>
+          <img src={setting} alt="" className="setting-image" />
         </div>
 
         <Link to="#">
           <div className="relative-box">
-            <div className="absolute-block">☰</div>
-            <div className="resume-block">Резюме</div>
+            <div className="resume-block">
+              <img src={search_work} alt="" className="img" />
+              <p className="absolute-block">search work</p>
+            </div>
           </div>
         </Link>
 
-        <div className="button-box">
-          <button className="subscribe-button">Подписаться</button>
-          <button className="write-button">Написать</button>
+        <div className="small-buttons">
+          <button id="back1"></button>
+          <button id="back2"></button>
         </div>
       </section>
       <section>
-        <div className="portfolio">Портфолио</div>
+        <div className="portfolio">
+          <p>Портфолио</p>
+          <img src={setting} alt="" className="setting-image" onClick={handleClickPortfolio}/>
+        </div>
         <div className="video-grid">
           {person.works &&
             person.works.map((project, index) => {
+              const imagePath = `${ApiGetFile} ${project.id}`;
               return (
                 <div className="video-preview" key={index}>
                   <Link to={`/profile/work/${project.id}`}>
                     <div className="video-previw">
-                      <img src={`${ApiGetFile} ${project.id}`} alt="" className="image" />
+                      <img src={imagePath} alt="" className="image" />
                       <div className="video-info">
                         <p>{project.description || "Описание проекта"}</p>
                       </div>
@@ -81,15 +100,9 @@ const ProfilePage = () => {
           </div>
         </div>
       </div> */}
-
-        <section className="more-section">
-          <Link to={`/profile/portfolio/${person.executorId}`}>
-            <button className="more-button">Больше работ</button>
-          </Link>
-        </section>
       </section>
     </main>
   );
 };
 
-export default ProfilePage;
+export default MyProfilePage;
